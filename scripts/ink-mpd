@@ -1,4 +1,52 @@
 #!/usr/bin/bash
 # Control MPD using mpc and demnu.
 
+# Stop on error
+set -e
 
+# Variables
+choices="Pause\nNext\nPrevious\nPlay\nStop\n"
+
+# Functions
+Pause(){
+    mpc toggle   
+}
+
+Next(){
+    mpc next
+}
+
+Previous(){
+    mpc prev
+}
+
+Play(){
+    mpc play
+}
+
+Stop(){
+    mpc stop
+}
+
+Menu(){
+    choice=$(echo -e "$choices" | dmenu -p "Mpd: ")
+    case $choice in
+        "Pause")
+            Pause
+            exit;;
+        "Next")
+            Next
+            exit;;
+        "Previous")
+            Previous
+            exit;;
+        "Play")
+            Play
+            exit;;
+        "Stop")
+            Stop
+            exit;;
+    esac
+}
+
+Menu
