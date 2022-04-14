@@ -6,9 +6,6 @@ set -e
 
 # Variables
 choices="All\nSelection\nDownloads"
-save=0
-
-
 
 # Functions
 All(){
@@ -19,7 +16,7 @@ Selection(){
     maim --select | xclip -selection clipboard -target image/png
 }
 
-Save(){
+Downloads(){
     pictures_dir="$(xdg-user-dir PICTURES)"
     time=$(date +"%H-%M-%S")
 
@@ -45,7 +42,7 @@ Menu(){
     fi 
     if [ "$choice" == "Downloads" ]
     then
-        Save
+        Downloads
     fi
 
 
