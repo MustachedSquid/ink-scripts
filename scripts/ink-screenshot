@@ -1,1 +1,54 @@
 #!/usr/bin/bash
+# Screenshot menu, uses maim, xclip and dmenu.
+
+# Stop on error
+set -e
+
+# Variables
+choices="All\nSelection\nDownloads"
+save=0
+
+
+
+# Functions
+All(){
+    maim | xclip -selection clipboard -target image/png
+}
+
+Selection(){
+    maim --select | xclip -selection clipboard -target image/png
+}
+
+Save(){
+    pictures_dir="$(xdg-user-dir PICTURES)"
+    time=$(date +"%H-%M-%S")
+
+    if [ "$pictures_dir" == "" ]
+    then
+        pictures_dir="~"
+    fi
+    maim -s $pictures_dir/screenshot-$time.png; xclip -selection clipboard -t image/png < $pictures_dir/screenshot-$time.png
+
+}
+
+Menu(){
+    choice=$(echo -e "$choices" | dmenu -p "Snip: ")
+    #echo "$choice"
+    
+    if [ "$choice" == "All" ]
+    then
+        All
+    fi
+    if [ "$choice" == "Selection" ]
+    then
+        Selection
+    fi 
+    if [ "$choice" == "Downloads" ]
+    then
+        Save
+    fi
+
+
+}
+
+Menu
