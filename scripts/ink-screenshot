@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # Screenshot menu, uses maim, xclip and dmenu.
 
 # Stop on error

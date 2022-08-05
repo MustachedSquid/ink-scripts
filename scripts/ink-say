@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# Inspired by cowsay.
+
+# Ascii Squid, source: https://ascii.co.uk/art/squid
+squid="    \\
+     \\      ^
+      \\   /   \\
+          \   /
+          |   |
+          |   |
+          | 0 |
+         // ||\\
+        (( // ||
+         \\))  \\
+       //||    ))
+       ( ))   //
+        //   (("
+
+text=""
+text="$1"
+if [[ -p /dev/stdin ]]
+    then
+    text=$(cat -)
+fi
+if [ "$text" == "" ]
+then
+    text="You forgot to tell me what to say!"
+fi
+
+length=${#text}
+length=$(($length+2))
+echo -n "/"
+i=0
+while true; do
+    i=$(($i+1))
+
+    echo -n "-"
+    if [ "$i" == "$length" ]
+    then
+        break
+    fi
+done
+
+
+
+echo "\\"
+echo "| $text |"
+echo -n "\\"
+i=0
+while true; do
+    i=$(($i+1))
+
+    echo -n "-"
+    if [ "$i" == "$length" ]
+    then
+        break
+    fi
+done
+
+echo "/"
+
+echo -e "$squid"

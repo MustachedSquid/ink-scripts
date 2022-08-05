@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+# Download and "configure" a license file
+
+# Stop on error
+set -e
+
+# Variables
+choices="BSD4\nBSD3\nBSD2\nBSD0\nMIT\nISC\nWTFPL\nUnlicense\nApache\nMozilla\nBoost"
+year=$(date +%Y)
+filename="LICENSE"
+name="$1"
+
+# License text URLs
+ISC=https://paste.sr.ht/blob/d06639910064fd24d5d8adadb0e5d2a35d4104a9
+MIT=https://paste.sr.ht/blob/d495e35ef8b4b8414369da66df873a3213dab335
+BSD4=https://paste.sr.ht/blob/e2fdfb75127da7c29000f59e13d1c713a7da5c84
+BSD3=https://paste.sr.ht/blob/77e6cb996a3a6612f67ac3fd5c7b1ebf4e8fcd22
+BSD2=https://paste.sr.ht/blob/c7a337bf4926550903b9ca7f7e49761d912eb17b
+BSD0=https://paste.sr.ht/blob/a11007f1f28f3bad44d76c0a99a8147d594aee91
+
+
+
+WTFPL=https://paste.sr.ht/blob/2e1a0841abce4cc6dc2fcad6697b0862dc477882
+Unlicense=https://paste.sr.ht/blob/e5919469caa3615854ac352b793b7faef97eacd8
+
+Apache=https://paste.sr.ht/blob/58853eb8199b5afe72a73a25fd8cf8c94285174b
+Mozilla=https://paste.sr.ht/blob/5492593d138f1aae7754175d72091f0e26585e9e
+Boost=https://paste.sr.ht/blob/3f317fbb3e08fd99169d2e77105d562ea0e482c7
+
+
+
+# Functions
+BSD0(){
+    license=$(curl -s $BSD0)
+
+    echo "$license" > $filename
+    sed -i -e "s/YEAR/$year/g" $filename
+    sed -i -e "s/NAME/$name/g" $filename
+}
+
+BSD2(){
+    license=$(curl -s $BSD2)
+
+    echo "$license" > $filename
+    sed -i -e "s/YEAR/$year/g" $filename
+    sed -i -e "s/NAME/$name/g" $filename
+}
+BSD3(){
+    license=$(curl -s $BSD3)
+
+    echo "$license" > $filename
+    sed -i -e "s/YEAR/$year/g" $filename
+    sed -i -e "s/NAME/$name/g" $filename
+}
+
+BSD4(){
+    license=$(curl -s $BSD4)
+
+    echo "$license" > $filename
+    sed -i -e "s/YEAR/$year/g" $filename
+    sed -i -e "s/NAME/$name/g" $filename
+}
+
+MIT(){
+    license=$(curl -s $MIT)
+
+    echo "$license" > $filename
+    sed -i -e "s/YEAR/$year/g" $filename
+    sed -i -e "s/NAME/$name/g" $filename
+
+}
+ISC(){
+    license=$(curl -s $ISC)
+
+    echo "$license" > $filename
+    sed -i -e "s/\[year\]/$year/g" $filename
+    sed -i -e "s/\[fullname\]/$name/g" $filename
+}
+
+
+Apache(){
+    license=$(curl -s $Apache)
+
+    echo "$license" > $filename
+}
+Mozilla(){
+    license=$(curl -s $Mozilla)
+
+    echo "$license" > $filename
+}
+Boost(){
+    license=$(curl -s $Boost)
+
+    echo "$license" > $filename
+}
+
+WTFPL(){
+    license=$(curl -s $WTFPL)
+
+    echo "$license" > $filename
+}
+
+Unlicense(){
+    license=$(curl -s $Unlicense)
+
+    echo "$license" > $filename
+}
+
+
+
+Menu(){
+    choice=$(echo -e "$choices" | dmenu -p "License:")
+    $($choice)
+}
+
+
+if [ "$name" == "" ]
+then
+    echo "Please specify a name!"
+    exit
+fi
+
+
+Menu

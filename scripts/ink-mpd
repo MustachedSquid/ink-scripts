@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # Control MPD using mpc and demnu.
 
 # Stop on error
